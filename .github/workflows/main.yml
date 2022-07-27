@@ -1,0 +1,41 @@
+name: Bot Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-bot:
+    name: BOTMUSIC
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: clone source
+        run: |
+          git config --global user.email nasutionmiku@gmail.com
+          git config --global user.name Shiivam69
+          git clone https://Shiivam69:$GH_TOKEN@github.com/Shiivam69/Yukki -b master
+          cd BOTMUSIC
+          curl $CONFIG_FILE_URL -o config.env
+        env:
+         GH_TOKEN: ${{secrets.GH_TOKEN}}
+         CONFIG_FILE_URL: ${{secrets.CONFIG}}
+
+      - name: Run Bot..
+        run: |
+          cd BOTMUSIC
+          apt-get update -y && apt-get upgrade -y
+          && apt-get install -y --no-install-recommends ffmpeg
+          && apt-get clean
+          && rm -rf /var/lib/apt/lists/*
+          pip3 install --no-cache-dir --upgrade --requirement requirements.txt
+          bash start &
+          sleep 300m
+          
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          force: true
