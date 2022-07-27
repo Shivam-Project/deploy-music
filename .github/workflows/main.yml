@@ -17,7 +17,7 @@ jobs:
           git config --global user.email nasutionmiku@gmail.com
           git config --global user.name Shiivam69
           git clone https://Shiivam69:$GH_TOKEN@github.com/Shiivam69/Yukki -b master
-          cd BOTMUSIC
+          cd Yukki
           curl $CONFIG_FILE_URL -o config.env
         env:
          GH_TOKEN: ${{secrets.GH_TOKEN}}
@@ -25,7 +25,7 @@ jobs:
 
       - name: Run Bot..
         run: |
-          cd BOTMUSIC
+          cd Yukki
           apt-get update -y && apt-get upgrade -y
           && apt-get install -y --no-install-recommends ffmpeg
           && apt-get clean
