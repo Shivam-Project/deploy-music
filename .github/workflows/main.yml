@@ -18,7 +18,7 @@ jobs:
           git config --global user.name Shiivam69
           git clone https://Shiivam69:$GH_TOKEN@github.com/Shiivam69/Yukki -b master
           cd Yukki
-          curl $CONFIG_FILE_URL -o config.env
+          curl $CONFIG_FILE_URL -o kntl.env
         env:
          GH_TOKEN: ${{secrets.GH_TOKEN}}
          CONFIG_FILE_URL: ${{secrets.CONFIG}}
